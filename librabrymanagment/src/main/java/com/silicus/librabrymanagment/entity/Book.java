@@ -19,7 +19,7 @@ public class Book {
 	@Column(name="Author", nullable = false)
 	private String author;
 	@Column(name="Isbn", nullable = false)
-	private String ISBN;
+	private String isbn;
 	@Column(name="RackName", nullable = false)
 	private String rackName;
 	@Column(name="IsAvailable", nullable = false)
@@ -45,10 +45,10 @@ public class Book {
 		this.author = author;
 	}
 	public String getISBN() {
-		return ISBN;
+		return isbn;
 	}
 	public void setISBN(String iSBN) {
-		ISBN = iSBN;
+		isbn = iSBN;
 	}
 	public String getRackName() {
 		return rackName;
@@ -84,7 +84,7 @@ public class Book {
 	}
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", name=" + name + ", author=" + author + ", ISBN=" + ISBN + ", rackName=" + rackName
+		return "Book [id=" + id + ", name=" + name + ", author=" + author + ", ISBN=" + isbn + ", rackName=" + rackName
 				+ ", isAvailable=" + isAvailable + "]";
 	}
 	
