@@ -10,28 +10,28 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="BookIssueTracker")
+@Table(name = "BookIssueTracker")
 public class BookIssueTracker {
-
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="Id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "Id", nullable = false)
 	private int id;
-	@OneToOne(targetEntity=Book.class,cascade=CascadeType.ALL)
+	@OneToOne(targetEntity = Book.class, cascade = CascadeType.ALL)
 	private Book book;
-	/*
-	 * @OneToOne(targetEntity=User.class,cascade=CascadeType.ALL) private User user;
-	 */
-	@Column(name="DateOfIssue", nullable = false)
+
+	@OneToOne(targetEntity = User.class, cascade = CascadeType.ALL)
+	private User user;
+
+	@Column(name = "DateOfIssue", nullable = false)
 	private String dateOfIssue;
-	@Column(name="ExpDate", nullable = false)
+	@Column(name = "ExpDate", nullable = false)
 	private String expDate;
-	@Column(name="Issuer", nullable = false)
+	@Column(name = "Issuer", nullable = false)
 	private String issuer;
 
 	public int getId() {
@@ -50,11 +50,13 @@ public class BookIssueTracker {
 		this.book = book;
 	}
 
-	/*
-	 * public User getUser() { return user; }
-	 * 
-	 * public void setUser(User user) { this.user = user; }
-	 */
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public String getDateOfIssue() {
 		return dateOfIssue;
@@ -104,14 +106,10 @@ public class BookIssueTracker {
 
 	@Override
 	public String toString() {
-		return "BookIssueTracker [id=" + id + ", book=" + book + ", dateOfIssue=" + dateOfIssue + ", expDate=" + expDate
-				+ ", issuer=" + issuer + "]";
+		return "BookIssueTracker [id=" + id + ", book=" + book + ", user=" + user + ", dateOfIssue=" + dateOfIssue
+				+ ", expDate=" + expDate + ", issuer=" + issuer + "]";
 	}
 
 	
-
-
-	
-
 
 }

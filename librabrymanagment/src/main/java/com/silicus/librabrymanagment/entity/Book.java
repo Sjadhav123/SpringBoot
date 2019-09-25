@@ -2,9 +2,12 @@ package com.silicus.librabrymanagment.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -25,6 +28,10 @@ public class Book {
 	@Column(name="IsAvailable", nullable = false)
 	private boolean isAvailable;
 	
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "issueTracker_id", nullable = false)
+	private BookIssueTracker bookIssueTracker;
+	
 	public long getId() {
 		
 		return id;
@@ -44,12 +51,7 @@ public class Book {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	public String getISBN() {
-		return isbn;
-	}
-	public void setISBN(String iSBN) {
-		isbn = iSBN;
-	}
+
 	public String getRackName() {
 		return rackName;
 	}
@@ -61,6 +63,21 @@ public class Book {
 	}
 	public void setAvailable(boolean isAvailable) {
 		this.isAvailable = isAvailable;
+	}
+	
+	
+	
+	public String getIsbn() {
+		return isbn;
+	}
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+	public BookIssueTracker getBookIssueTracker() {
+		return bookIssueTracker;
+	}
+	public void setBookIssueTracker(BookIssueTracker bookIssueTracker) {
+		this.bookIssueTracker = bookIssueTracker;
 	}
 	@Override
 	public int hashCode() {

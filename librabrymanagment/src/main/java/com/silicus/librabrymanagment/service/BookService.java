@@ -46,7 +46,7 @@ public class BookService {
 			oldBook.setAuthor(book.getAuthor());
 			oldBook.setAvailable(book.isAvailable());
 			oldBook.setId(book.getId());
-			oldBook.setISBN(book.getISBN());
+			oldBook.setIsbn(book.getIsbn());
 			oldBook.setName(book.getName());
 			oldBook.setRackName(book.getRackName());
 
