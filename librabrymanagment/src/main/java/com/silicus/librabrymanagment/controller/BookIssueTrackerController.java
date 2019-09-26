@@ -22,15 +22,15 @@ public class BookIssueTrackerController {
 	@Autowired
 	private BookIssueTrackerService bookIssueTrackerService;
 
-	@RequestMapping(value = "/saveBook", method = RequestMethod.POST)
-	public ResponseEntity<BookIssueTracker> createBook(@RequestBody BookIssueTracker bookIssueTracker) {
+	@RequestMapping(value = "/saveBookIssueTracker", method = RequestMethod.POST)
+	public ResponseEntity<BookIssueTracker> createBookIssueTracker(@RequestBody BookIssueTracker bookIssueTracker) {
 		bookIssueTrackerService.saveBookIssueTracker(bookIssueTracker);
 		return new ResponseEntity<BookIssueTracker>(HttpStatus.OK);
 
 	}
 
 	@RequestMapping(value = "/getBookIssueTrackerById/{id}", method = RequestMethod.GET)
-	public ResponseEntity<BookIssueTracker> getBook(@PathVariable("id") long id) throws Exception {
+	public ResponseEntity<BookIssueTracker> getBookIssueTracker(@PathVariable("id") long id) throws Exception {
 
 		BookIssueTracker bookIssueTracker = bookIssueTrackerService.getBookIssueTracker(id);
 		return new ResponseEntity<BookIssueTracker>(bookIssueTracker, new HttpHeaders(), HttpStatus.OK);
@@ -38,7 +38,7 @@ public class BookIssueTrackerController {
 	}
 
 	@RequestMapping(value = "/getAllBookIssueTrackers", method = RequestMethod.GET)
-	public ResponseEntity<List<BookIssueTracker>> getAllBooks() throws Exception {
+	public ResponseEntity<List<BookIssueTracker>> getAllBookIssueTrackers() throws Exception {
 
 		List<BookIssueTracker> bookIssueTrackerList = bookIssueTrackerService.getAllBookIssueTrackers();
 		return new ResponseEntity<List<BookIssueTracker>>(bookIssueTrackerList, new HttpHeaders(), HttpStatus.OK);
@@ -46,7 +46,7 @@ public class BookIssueTrackerController {
 	}
 
 	@RequestMapping(value = "/updateBookIssueTracker/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<BookIssueTracker> updateBook(@PathVariable("id") long id,
+	public ResponseEntity<BookIssueTracker> updateBookIssueTracker(@PathVariable("id") long id,
 			@RequestBody BookIssueTracker bookIssueTracker) {
 
 		BookIssueTracker updateBookIssueTracker = bookIssueTrackerService.updateBookIssueTracker(id, bookIssueTracker);
@@ -54,8 +54,8 @@ public class BookIssueTrackerController {
 
 	}
 
-	@RequestMapping(value = "/deleteBookById/{id}", method = RequestMethod.DELETE)
-	public HttpStatus deleteBook(@PathVariable("id") long id) throws Exception {
+	@RequestMapping(value = "/deleteBookIssueTrackerById/{id}", method = RequestMethod.DELETE)
+	public HttpStatus deleteBookIssueTracker(@PathVariable("id") long id) throws Exception {
 
 		bookIssueTrackerService.deleteBookIssueTrackerById(id);
 		return HttpStatus.OK;

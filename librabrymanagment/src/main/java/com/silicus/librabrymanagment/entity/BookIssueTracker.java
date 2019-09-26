@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -19,12 +22,14 @@ public class BookIssueTracker {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Id", nullable = false)
+	@Column(name = "issueTracker_Id", nullable = false)
 	private int id;
-	@OneToOne(targetEntity = Book.class, cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="book_Id",referencedColumnName="book_Id")
 	private Book book;
 
-	@OneToOne(targetEntity = User.class, cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name ="user_Id",referencedColumnName="user_Id") 
 	private User user;
 
 	@Column(name = "DateOfIssue", nullable = false)
