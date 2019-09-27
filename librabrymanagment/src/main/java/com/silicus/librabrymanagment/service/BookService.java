@@ -44,7 +44,7 @@ public class BookService {
 
 			Book oldBook = existingBook.get();
 			oldBook.setAuthor(book.getAuthor());
-			oldBook.setAvailable(book.isAvailable());
+			oldBook.setIsAvailable(book.getIsAvailable());
 			oldBook.setId(book.getId());
 			oldBook.setIsbn(book.getIsbn());
 			oldBook.setName(book.getName());

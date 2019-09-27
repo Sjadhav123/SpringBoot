@@ -1,70 +1,55 @@
 package com.silicus.librabrymanagment.entity;
 
-import javax.persistence.CascadeType;
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "BookIssueTracker")
-public class BookIssueTracker {
-
-	/**
-	 * 
-	 */
+@Table(name="book_issue_tracker")
+//@NamedQuery(name="BookIssueTracker.findAll", query="SELECT b FROM BookIssueTracker b")
+public class BookIssueTracker implements Serializable {
 	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "issueTracker_Id", nullable = false)
-	private int id;
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="book_Id",referencedColumnName="book_Id")
-	private Book book;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name ="user_Id",referencedColumnName="user_Id") 
-	private User user;
-
-	@Column(name = "DateOfIssue", nullable = false)
+	@Column(name="date_of_issue")
 	private String dateOfIssue;
-	@Column(name = "ExpDate", nullable = false)
+
+	@Column(name="exp_date")
 	private String expDate;
-	@Column(name = "Issuer", nullable = false)
+
 	private String issuer;
 
-	public int getId() {
-		return id;
+	//bi-directional many-to-one association to Book
+	@ManyToOne(fetch=FetchType.LAZY)
+	private Book book;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne(fetch=FetchType.LAZY)
+	private User user;
+
+	public BookIssueTracker() {
 	}
 
-	public void setId(int id) {
+	public Long getId() {
+		return this.id;
+	}
+
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Book getBook() {
-		return book;
-	}
-
-	public void setBook(Book book) {
-		this.book = book;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public String getDateOfIssue() {
-		return dateOfIssue;
+		return this.dateOfIssue;
 	}
 
 	public void setDateOfIssue(String dateOfIssue) {
@@ -72,7 +57,7 @@ public class BookIssueTracker {
 	}
 
 	public String getExpDate() {
-		return expDate;
+		return this.expDate;
 	}
 
 	public void setExpDate(String expDate) {
@@ -80,41 +65,26 @@ public class BookIssueTracker {
 	}
 
 	public String getIssuer() {
-		return issuer;
+		return this.issuer;
 	}
 
 	public void setIssuer(String issuer) {
 		this.issuer = issuer;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
+	public Book getBook() {
+		return this.book;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		BookIssueTracker other = (BookIssueTracker) obj;
-		if (id != other.id)
-			return false;
-		return true;
+	public void setBook(Book book) {
+		this.book = book;
 	}
 
-	@Override
-	public String toString() {
-		return "BookIssueTracker [id=" + id + ", book=" + book + ", user=" + user + ", dateOfIssue=" + dateOfIssue
-				+ ", expDate=" + expDate + ", issuer=" + issuer + "]";
+	public User getUser() {
+		return this.user;
 	}
 
-	
-
+	public void setUser(User user) {
+		this.user = user;
+	}
 }

@@ -1,128 +1,112 @@
 package com.silicus.librabrymanagment.entity;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "BOOK")
-public class Book {
+//@NamedQuery(name="Book.findAll", query="SELECT b FROM Book b")
+public class Book implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "book_Id", nullable = false)
-	private long id;
-	@Column(name = "Name", nullable = false)
-	private String name;
-	@Column(name = "Author", nullable = false)
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+
 	private String author;
-	@Column(name = "Isbn", nullable = false)
+
+	@Column(name="is_available")
+	private byte isAvailable;
+
 	private String isbn;
-	@Column(name = "RackName", nullable = false)
+
+	private String name;
+
+	@Column(name="rack_name")
 	private String rackName;
-	@Column(name = "IsAvailable", nullable = false)
-	private boolean isAvailable;
 
-	/*
-	 * @OneToMany(cascade = CascadeType.ALL)
-	 * 
-	 * @JoinColumn(name = "book_Id") private List<BookIssueTracker>
-	 * bookIssueTracker;
-	 */
+	//bi-directional many-to-one association to BookIssueTracker
+	@OneToMany(mappedBy="book")
+	private Set<BookIssueTracker> bookIssueTrackers;
 
-	public long getId() {
-
-		return id;
+	public Book() {
 	}
 
-	public void setId(long id) {
+	public Long getId() {
+		return this.id;
+	}
+
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getAuthor() {
-		return author;
+		return this.author;
 	}
 
 	public void setAuthor(String author) {
 		this.author = author;
 	}
 
-	public String getRackName() {
-		return rackName;
+	public byte getIsAvailable() {
+		return this.isAvailable;
 	}
 
-	public void setRackName(String rackName) {
-		this.rackName = rackName;
-	}
-
-	public boolean isAvailable() {
-		return isAvailable;
-	}
-
-	public void setAvailable(boolean isAvailable) {
+	public void setIsAvailable(byte isAvailable) {
 		this.isAvailable = isAvailable;
 	}
 
 	public String getIsbn() {
-		return isbn;
+		return this.isbn;
 	}
 
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
 
-	
-	/*
-	 * public List<BookIssueTracker> getBookIssueTracker() { return
-	 * bookIssueTracker; }
-	 * 
-	 * public void setBookIssueTracker(List<BookIssueTracker> bookIssueTracker) {
-	 * this.bookIssueTracker = bookIssueTracker; }
-	 */
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		return result;
+	public String getName() {
+		return this.name;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Book other = (Book) obj;
-		if (id != other.id)
-			return false;
-		return true;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	@Override
-	public String toString() {
-		return "Book [id=" + id + ", name=" + name + ", author=" + author + ", ISBN=" + isbn + ", rackName=" + rackName
-				+ ", isAvailable=" + isAvailable + "]";
+	public String getRackName() {
+		return this.rackName;
+	}
+
+	public void setRackName(String rackName) {
+		this.rackName = rackName;
+	}
+
+	public Set<BookIssueTracker> getBookIssueTrackers() {
+		return this.bookIssueTrackers;
+	}
+
+	public void setBookIssueTrackers(Set<BookIssueTracker> bookIssueTrackers) {
+		this.bookIssueTrackers = bookIssueTrackers;
+	}
+
+	public BookIssueTracker addBookIssueTracker(BookIssueTracker bookIssueTracker) {
+		getBookIssueTrackers().add(bookIssueTracker);
+		bookIssueTracker.setBook(this);
+
+		return bookIssueTracker;
+	}
+
+	public BookIssueTracker removeBookIssueTracker(BookIssueTracker bookIssueTracker) {
+		getBookIssueTrackers().remove(bookIssueTracker);
+		bookIssueTracker.setBook(null);
+
+		return bookIssueTracker;
 	}
 
 }
